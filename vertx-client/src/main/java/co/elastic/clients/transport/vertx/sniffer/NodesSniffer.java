@@ -1,5 +1,3 @@
-import java.nio.file.Paths
-
 /*
  * Licensed to Elasticsearch B.V. under one or more contributor
  * license agreements. See the NOTICE file distributed with
@@ -19,9 +17,19 @@ import java.nio.file.Paths
  * under the License.
  */
 
-rootProject.name = "elasticsearch-java"
+package co.elastic.clients.transport.vertx.sniffer;
 
-include("java-client")
-include("rest5-client")
-include("vertx-client")
-include("tools")
+import co.elastic.clients.transport.vertx.Node;
+
+import java.io.IOException;
+import java.util.List;
+
+/**
+ * Responsible for sniffing the http hosts.
+ */
+public interface NodesSniffer {
+    /**
+     * Returns the sniffed Elasticsearch nodes.
+     */
+    List<Node> sniff() throws IOException;
+}

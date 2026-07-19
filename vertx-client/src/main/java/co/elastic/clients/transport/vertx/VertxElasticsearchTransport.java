@@ -1,5 +1,3 @@
-import java.nio.file.Paths
-
 /*
  * Licensed to Elasticsearch B.V. under one or more contributor
  * license agreements. See the NOTICE file distributed with
@@ -19,9 +17,19 @@ import java.nio.file.Paths
  * under the License.
  */
 
-rootProject.name = "elasticsearch-java"
+package co.elastic.clients.transport.vertx;
 
-include("java-client")
-include("rest5-client")
-include("vertx-client")
-include("tools")
+import co.elastic.clients.json.JsonpMapper;
+import co.elastic.clients.transport.ElasticsearchTransportBase;
+import co.elastic.clients.transport.TransportOptions;
+
+/**
+ * Elasticsearch transport using a Vert.x-based HTTP client.
+ */
+public class VertxElasticsearchTransport extends ElasticsearchTransportBase {
+
+    public VertxElasticsearchTransport(VertxElasticsearchClient client, TransportOptions options,
+                                       JsonpMapper mapper) {
+        super(new VertxTransportHttpClient(client), options, mapper);
+    }
+}

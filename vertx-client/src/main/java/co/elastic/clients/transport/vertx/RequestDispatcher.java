@@ -1,5 +1,3 @@
-import java.nio.file.Paths
-
 /*
  * Licensed to Elasticsearch B.V. under one or more contributor
  * license agreements. See the NOTICE file distributed with
@@ -19,9 +17,32 @@ import java.nio.file.Paths
  * under the License.
  */
 
-rootProject.name = "elasticsearch-java"
+package co.elastic.clients.transport.vertx;
 
-include("java-client")
-include("rest5-client")
-include("vertx-client")
-include("tools")
+import io.vertx.core.Future;
+import io.vertx.core.http.HttpClient;
+
+import java.io.Closeable;
+import java.util.Collection;
+import java.util.List;
+
+/**
+ * Interface for dispatching HTTP requests with node management.
+ */
+public interface RequestDispatcher extends Closeable {
+
+    /**
+     * Dispatch a request through the given HttpClient, selecting the appropriate node.
+     */
+    Future<Response> dispatch(HttpClient httpClient, Request request);
+
+    /**
+     * Set the nodes the dispatcher should use.
+     */
+    void setNodes(Collection<Node> nodes);
+
+    /**
+     * Get the current list of nodes.
+     */
+    List<Node> getNodes();
+}
